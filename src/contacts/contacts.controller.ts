@@ -8,11 +8,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ContactsService } from './contacts.service';
-import { ContactListDto } from './dto/contact-list.dto';
-import { toPromise } from 'src/shared/utils';
-import { ContactDto } from './dto/contact.dto';
-import { CreateContactDto } from './dto/create-contact.dto';
+import { ContactsService } from '@contacts/contacts.service';
+import { ContactListDto } from '@contacts/dto/contact-list.dto';
+import { toPromise } from '@shared/utils';
+import { ContactDto } from '@contacts/dto/contact.dto';
+import { CreateContactDto } from '@contacts/dto/create-contact.dto';
 
 @Controller('api/contacts')
 export class ContactsController {

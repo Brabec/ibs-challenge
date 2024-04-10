@@ -1,4 +1,4 @@
-import { ContactEntity } from 'src/contacts/entity/contact.entity';
+import { ContactEntity } from '@contacts/entity/contact.entity';
 
 export const contacts: ContactEntity[] = [
   {
