@@ -1,8 +1,7 @@
-export class AddressDto {
-  id: number;
+export class CreateAddressDto {
   zipCode: string;
   street: string;
-  number: number;
+  number?: number;
   district: string;
   complement: string;
   uf: string;

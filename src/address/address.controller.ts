@@ -7,7 +7,6 @@ export class AddressController {
 
   @Get(':cep')
   async findOne(@Param('cep') zipCode: string) {
-    console.log('zip', zipCode);
     return await this.addressService.getAddressDetails(zipCode);
   }
 }
