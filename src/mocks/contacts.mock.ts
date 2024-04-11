@@ -1,3 +1,4 @@
+import { AddressEntity } from '@address/entity/address.entity';
 import { ContactEntity } from '@contacts/entity/contact.entity';
 
 export const contacts: ContactEntity[] = [
@@ -8,6 +9,7 @@ export const contacts: ContactEntity[] = [
     sex: 'M',
     birth: new Date('1995-03-01'),
     maritalStatus: 'divorced',
+    address: new AddressEntity(),
   },
   {
     id: 2,
@@ -16,6 +18,7 @@ export const contacts: ContactEntity[] = [
     sex: 'M',
     birth: new Date('2010-01-02'),
     maritalStatus: 'single',
+    address: new AddressEntity(),
   },
   {
     id: 3,
@@ -24,6 +27,7 @@ export const contacts: ContactEntity[] = [
     sex: 'F',
     birth: new Date('1980-01-02'),
     maritalStatus: 'divorced',
+    address: new AddressEntity(),
   },
   {
     id: 4,
@@ -32,5 +36,6 @@ export const contacts: ContactEntity[] = [
     sex: 'F',
     birth: new Date('2000-01-02'),
     maritalStatus: 'married',
+    address: new AddressEntity(),
   },
 ];

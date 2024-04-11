@@ -1,3 +1,5 @@
+import { CreateAddressDto } from '@address/dto/create-address.dto';
+
 export class CreateContactDto {
   name: string;
   // @MaxLength(1)
@@ -6,5 +8,5 @@ export class CreateContactDto {
   birth: Date;
   // @IsEnum(['divorced', 'married', 'single'])
   maritalStatus: string;
-  // address: AddressEntity;
+  address: CreateAddressDto;
 }

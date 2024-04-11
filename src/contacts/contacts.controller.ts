@@ -13,10 +13,14 @@ import { ContactListDto } from '@contacts/dto/contact-list.dto';
 import { toPromise } from '@shared/utils';
 import { ContactDto } from '@contacts/dto/contact.dto';
 import { CreateContactDto } from '@contacts/dto/create-contact.dto';
+import { AddressService } from '@address/address.service';
 
 @Controller('api/contacts')
 export class ContactsController {
-  constructor(private readonly contactsService: ContactsService) {}
+  constructor(
+    private readonly contactsService: ContactsService,
+    private readonly addressService: AddressService,
+  ) {}
 
   @Get()
   async findAll(): Promise<ContactListDto> {
@@ -38,6 +42,17 @@ export class ContactsController {
   async create(
     @Body() createContactDto: CreateContactDto,
   ): Promise<ContactDto> {
+    const addressDto = await this.addressService.getAddressDetails(
+      createContactDto.address.zipCode,
+    ); // todo: this should not happen here.
+
+    // replace given address with api response data
+    createContactDto.address = {
+      ...createContactDto.address,
+      ...addressDto,
+    };
+
+    // and inject into createContactDto to createContact
     return await this.contactsService.createContact(createContactDto);
   }
 
