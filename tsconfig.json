@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@contacts/*": ["src/contacts/*"],
+      "@address/*": ["src/address/*"],
+      "@shared/*": ["src/shared/*"],
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "./dist/**/*"
+  ]
 }
