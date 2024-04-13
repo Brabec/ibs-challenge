@@ -21,6 +21,8 @@
       "@contacts/*": ["src/contacts/*"],
       "@address/*": ["src/address/*"],
       "@shared/*": ["src/shared/*"],
+      "@managers/*": ["src/managers/*"],
+      "@auth/*": ["src/auth/*"],
     }
   },
   "exclude": [

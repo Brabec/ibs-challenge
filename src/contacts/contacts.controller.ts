@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ContactsService } from '@contacts/contacts.service';
 import { ContactListDto } from '@contacts/dto/contact-list.dto';
@@ -14,6 +15,7 @@ import { toPromise } from '@shared/utils';
 import { ContactDto } from '@contacts/dto/contact.dto';
 import { CreateContactDto } from '@contacts/dto/create-contact.dto';
 import { AddressService } from '@address/address.service';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 
 @Controller('api/contacts')
 export class ContactsController {
@@ -22,6 +24,7 @@ export class ContactsController {
     private readonly addressService: AddressService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<ContactListDto> {
     const contactList = await this.contactsService.getContacts();
@@ -29,6 +32,7 @@ export class ContactsController {
     return toPromise({ contactList });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<ContactDto> {
     try {
