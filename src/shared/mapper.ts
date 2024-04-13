@@ -2,6 +2,8 @@ import { AddressDto } from '@address/dto/address.dto';
 import { AddressEntity } from '@address/entity/address.entity';
 import { ContactDto } from '@contacts/dto/contact.dto';
 import { ContactEntity } from '@contacts/entity/contact.entity';
+import { ManagerDto } from '@managers/dto/manager.dto';
+import { ManagerEntity } from '@managers/entity/manager.entity';
 
 export const toContactDto = (data: ContactEntity): ContactDto => {
   const { id, name, email, sex, birth, maritalStatus } = data;
@@ -23,4 +25,10 @@ export const toAddressDto = (data: AddressEntity): AddressDto => {
   };
 
   return addressDto;
+};
+
+export const toManagerDto = (data: ManagerEntity): ManagerDto => {
+  const managerDto: ManagerDto = { id: data.id, email: data.email };
+
+  return managerDto;
 };
