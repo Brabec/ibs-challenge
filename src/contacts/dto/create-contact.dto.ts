@@ -1,9 +1,10 @@
 import { CreateAddressDto } from '@address/dto/create-address.dto';
-import { IsEnum, IsDateString } from 'class-validator';
+import { IsEmail, IsEnum, IsDateString } from 'class-validator';
 
 const maritalEnum = ['divorced', 'married', 'single'];
 export class CreateContactDto {
   name: string;
+  @IsEmail()
   email: string;
   @IsEnum(['M', 'F'])
   sex: string;
