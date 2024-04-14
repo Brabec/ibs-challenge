@@ -24,5 +24,6 @@ export class ContactDto {
   @IsEnum(['divorced', 'married', 'single'])
   maritalStatus: string;
   createdAt: Date;
+  daysToBirthday: number;
   address: AddressEntity;
 }
