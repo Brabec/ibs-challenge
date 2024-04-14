@@ -23,6 +23,7 @@
       "@shared/*": ["src/shared/*"],
       "@managers/*": ["src/managers/*"],
       "@auth/*": ["src/auth/*"],
+      "@pagination/*": ["src/pagination/*"],
     }
   },
   "exclude": [
