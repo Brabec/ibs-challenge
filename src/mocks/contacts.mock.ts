@@ -9,6 +9,8 @@ export const contacts: ContactEntity[] = [
     sex: 'M',
     birth: new Date('1995-03-01'),
     maritalStatus: 'divorced',
+    createdAt: new Date(Date.now()),
+    updatedAt: new Date(Date.now()),
     address: new AddressEntity(),
   },
   {
@@ -18,6 +20,8 @@ export const contacts: ContactEntity[] = [
     sex: 'M',
     birth: new Date('2010-01-02'),
     maritalStatus: 'single',
+    createdAt: new Date(Date.now()),
+    updatedAt: new Date(Date.now()),
     address: new AddressEntity(),
   },
   {
@@ -27,6 +31,8 @@ export const contacts: ContactEntity[] = [
     sex: 'F',
     birth: new Date('1980-01-02'),
     maritalStatus: 'divorced',
+    createdAt: new Date(Date.now()),
+    updatedAt: new Date(Date.now()),
     address: new AddressEntity(),
   },
   {
@@ -36,6 +42,8 @@ export const contacts: ContactEntity[] = [
     sex: 'F',
     birth: new Date('2000-01-02'),
     maritalStatus: 'married',
+    createdAt: new Date(Date.now()),
+    updatedAt: new Date(Date.now()),
     address: new AddressEntity(),
   },
 ];
