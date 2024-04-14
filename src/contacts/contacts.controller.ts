@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   NotFoundException,
   Param,
   Post,
@@ -16,7 +18,9 @@ import { ContactDto } from '@contacts/dto/contact.dto';
 import { CreateContactDto } from '@contacts/dto/create-contact.dto';
 import { AddressService } from '@address/address.service';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { CreateAddressDto } from '@address/dto/create-address.dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller('api/contacts')
 export class ContactsController {
   constructor(
@@ -24,7 +28,6 @@ export class ContactsController {
     private readonly addressService: AddressService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<ContactListDto> {
     const contactList = await this.contactsService.getContacts();
@@ -32,7 +35,6 @@ export class ContactsController {
     return toPromise({ contactList });
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<ContactDto> {
     try {
@@ -46,9 +48,14 @@ export class ContactsController {
   async create(
     @Body() createContactDto: CreateContactDto,
   ): Promise<ContactDto> {
-    const addressDto = await this.addressService.getAddressDetails(
-      createContactDto.address.zipCode,
-    ); // todo: this should not happen here.
+    let addressDto: CreateAddressDto;
+    try {
+      addressDto = await this.addressService.getAddressDetails(
+        createContactDto.address.zipCode,
+      ); // todo: this should not happen here.
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
 
     // replace given address with api response data
     createContactDto.address = {
@@ -56,8 +63,12 @@ export class ContactsController {
       ...addressDto,
     };
 
-    // and inject into createContactDto to createContact
-    return await this.contactsService.createContact(createContactDto);
+    try {
+      // and inject into createContactDto to createContact
+      return await this.contactsService.createContact(createContactDto);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put(':id')
@@ -65,11 +76,23 @@ export class ContactsController {
     @Param('id') id: number,
     @Body() contactDto: ContactDto,
   ): Promise<ContactDto> {
-    return await this.contactsService.updateContact(+id, contactDto);
+    try {
+      return await this.contactsService.updateContact(+id, contactDto);
+    } catch (err) {
+      let status = HttpStatus.BAD_REQUEST;
+      if (err instanceof NotFoundException) {
+        status = err.getStatus();
+      }
+      throw new HttpException(err.message, status);
+    }
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<ContactDto> {
-    return await this.contactsService.deleteContact(+id);
+    try {
+      return await this.contactsService.deleteContact(+id);
+    } catch (err) {
+      throw new NotFoundException();
+    }
   }
 }

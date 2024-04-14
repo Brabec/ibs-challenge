@@ -1,12 +1,28 @@
+import { AddressEntity } from '@address/entity/address.entity';
+import {
+  IsEmail,
+  IsOptional,
+  MaxLength,
+  IsEnum,
+  IsDateString,
+} from 'class-validator';
+
 export class ContactDto {
   id: number;
   name: string;
-  // @IsEmail()
+  @IsEmail()
+  @IsOptional()
   email: string;
-  // @MaxLength(1)
-  sex: string; // @IsEnum(['M', 'F'])
+  @MaxLength(1)
+  @IsOptional()
+  @IsEnum(['M', 'F'])
+  sex: string;
+  @IsOptional()
+  @IsDateString()
   birth: Date;
-  // @IsEnum(['divorced', 'married', 'single'])
+  @IsOptional()
+  @IsEnum(['divorced', 'married', 'single'])
   maritalStatus: string;
-  // address: AddressEntity;
+  createdAt: Date;
+  address: AddressEntity;
 }

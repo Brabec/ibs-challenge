@@ -6,8 +6,18 @@ import { ManagerDto } from '@managers/dto/manager.dto';
 import { ManagerEntity } from '@managers/entity/manager.entity';
 
 export const toContactDto = (data: ContactEntity): ContactDto => {
-  const { id, name, email, sex, birth, maritalStatus } = data;
-  const contactDto: ContactDto = { id, name, email, sex, birth, maritalStatus };
+  const { id, name, email, sex, birth, maritalStatus, createdAt } = data;
+  const { address } = data;
+  const contactDto: ContactDto = {
+    id,
+    name,
+    email,
+    sex,
+    birth,
+    maritalStatus,
+    createdAt,
+    address,
+  };
 
   return contactDto;
 };
