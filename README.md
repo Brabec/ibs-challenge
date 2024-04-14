@@ -24,6 +24,10 @@
 
 ## Description
 
+IBS Challenge in 2024.
+
+Applicant: Lucas Brabec Barreto Santana
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
@@ -35,6 +39,9 @@ $ npm install
 ## Running the app
 
 ```bash
+# starting services
+$ npm run build:services
+
 # development
 $ npm run start
 
