@@ -9,30 +9,48 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ContactsService } from '@contacts/contacts.service';
-import { ContactListDto } from '@contacts/dto/contact-list.dto';
-import { toPromise } from '@shared/utils';
 import { ContactDto } from '@contacts/dto/contact.dto';
 import { CreateContactDto } from '@contacts/dto/create-contact.dto';
 import { AddressService } from '@address/address.service';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { CreateAddressDto } from '@address/dto/create-address.dto';
+import { ContactEntity } from './entity/contact.entity';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { PaginationService } from '@pagination/pagination.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('api/contacts')
 export class ContactsController {
   constructor(
+    private readonly paginationService: PaginationService,
     private readonly contactsService: ContactsService,
     private readonly addressService: AddressService,
   ) {}
 
   @Get()
-  async findAll(): Promise<ContactListDto> {
-    const contactList = await this.contactsService.getContacts();
+  async findAll(@Query() query): Promise<Pagination<ContactEntity>> {
+    const { page, limit, search } = query;
+    const paginationOptions = {
+      page: page ? Number(page) : 1,
+      limit: limit ? Number(limit) : 10,
+    };
 
-    return toPromise({ contactList });
+    let searchOptions;
+    if (search) {
+      searchOptions = { name: search };
+    }
+
+    const contactRepository = await this.contactsService.getContacts();
+
+    return this.paginationService.paginate<ContactEntity>(
+      contactRepository,
+      paginationOptions,
+      searchOptions,
+    );
   }
 
   @Get(':id')

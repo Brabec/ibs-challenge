@@ -7,6 +7,7 @@ import { AuthModule } from '@auth/auth.module';
 import { ManagersModule } from '@managers/managers.module';
 import { ContactsModule } from '@contacts/contacts.module';
 import { AddressModule } from '@address/address.module';
+import { PaginationModule } from './pagination/pagination.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AddressModule } from '@address/address.module';
     AddressModule,
     AuthModule,
     ManagersModule,
+    PaginationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
