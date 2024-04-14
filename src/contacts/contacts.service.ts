@@ -26,12 +26,8 @@ export class ContactsService {
     return toPromise(toContactDto(contact));
   }
 
-  async getContacts(): Promise<ContactDto[]> {
-    const contacts = (
-      await this.contactRepository.find({ relations: ['address'] })
-    ).map((contact) => toContactDto(contact));
-
-    return toPromise(contacts);
+  async getContacts(): Promise<Repository<ContactEntity>> {
+    return toPromise(this.contactRepository);
   }
 
   async createContact(createContactDto: CreateContactDto): Promise<ContactDto> {
